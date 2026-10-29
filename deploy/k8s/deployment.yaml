@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-host
+  labels: { app: shop-host }
+spec:
+  replicas: 2
+  selector:
+    matchLabels: { app: shop-host }
+  template:
+    metadata:
+      labels: { app: shop-host }
+    spec:
+      containers:
+        - name: host
+          image: ghcr.io/8ashraf/shop:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ConnectionStrings__Database
+              valueFrom:
+                secretKeyRef:
+                  name: shop-db   # kubectl create secret generic shop-db --from-literal=connection='...'
+                  key: connection
+          readinessProbe:
+            httpGet: { path: /health, port: 8080 }
+          livenessProbe:
+            httpGet: { path: /health, port: 8080 }
+          resources:
+            requests: { cpu: 100m, memory: 256Mi }
+            limits: { cpu: "1", memory: 512Mi }

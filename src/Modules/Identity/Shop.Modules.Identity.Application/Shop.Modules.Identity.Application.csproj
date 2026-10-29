@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Shop.Modules.Identity.Domain/Shop.Modules.Identity.Domain.csproj" />
+    <ProjectReference Include="../Shop.Modules.Identity.IntegrationEvents/Shop.Modules.Identity.IntegrationEvents.csproj" />
+    <ProjectReference Include="../../../Shared/Shop.Shared.Application/Shop.Shared.Application.csproj" />
+  </ItemGroup>
+</Project>

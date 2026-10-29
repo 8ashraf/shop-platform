@@ -1,0 +1,13 @@
+# Last matching pattern wins. Replace @8ashraf/... with real teams or users.
+*                                @8ashraf/architects
+/docs/                           @8ashraf/architects
+/src/Shared/                     @8ashraf/architects
+/src/Host/                       @8ashraf/architects
+/tests/Shop.ArchitectureTests/  @8ashraf/architects
+/deploy/                         @8ashraf/devops
+/.github/                        @8ashraf/devops
+
+# ---- Modules (appended by modmono.sh add-module) ----
+/src/Modules/Identity/    @8ashraf/identity-team
+/tests/Modules/Identity/  @8ashraf/identity-team
+/docs/architecture/modules/identity.md  @8ashraf/identity-team

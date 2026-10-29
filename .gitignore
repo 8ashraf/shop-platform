@@ -1,0 +1,36 @@
+# Build
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+build/publish/
+*.user
+*.suo
+.vs/
+
+# IDE (keep the shared launch config)
+.idea/
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# Test results
+[Tt]est[Rr]esult*/
+coverage*/
+*.trx
+*.coverage
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets / env
+.env
+*.env
+appsettings.*.local.json
+secrets.json

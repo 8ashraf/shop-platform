@@ -1,0 +1,40 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Shop.Host (swagger)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/Host/Shop.Host/bin/Debug/net10.0/Shop.Host.dll",
+      "cwd": "${workspaceFolder}/src/Host/Shop.Host",
+      "launchSettingsFilePath": "${workspaceFolder}/src/Host/Shop.Host/Properties/launchSettings.json",
+      "launchSettingsProfile": "swagger",
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s/swagger"
+      }
+    },
+    {
+      "name": "Shop.Host (https)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/Host/Shop.Host/bin/Debug/net10.0/Shop.Host.dll",
+      "cwd": "${workspaceFolder}/src/Host/Shop.Host",
+      "launchSettingsFilePath": "${workspaceFolder}/src/Host/Shop.Host/Properties/launchSettings.json",
+      "launchSettingsProfile": "https"
+    },
+    {
+      "name": "Shop.Host (http)",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/src/Host/Shop.Host/bin/Debug/net10.0/Shop.Host.dll",
+      "cwd": "${workspaceFolder}/src/Host/Shop.Host",
+      "launchSettingsFilePath": "${workspaceFolder}/src/Host/Shop.Host/Properties/launchSettings.json",
+      "launchSettingsProfile": "http"
+    }
+  ]
+}

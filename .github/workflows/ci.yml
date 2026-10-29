@@ -1,0 +1,40 @@
+# Platform CI: shared code, host, root config — anything that can affect every module.
+# Always runs on main so the whole solution is verified after each merge.
+name: platform
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    paths:
+      - 'src/Shared/**'
+      - 'src/Host/**'
+      - 'tests/Shop.ArchitectureTests/**'
+      - 'tests/Shop.IntegrationTests/**'
+      - 'Directory.Build.props'
+      - 'Directory.Packages.props'
+      - 'global.json'
+      - '*.sln'
+      - '*.slnx'
+      - 'deploy/**'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/_module-ci.yml'
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: dotnet build -c Release
+      - run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
+
+  docker:
+    if: github.ref == 'refs/heads/main'
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f deploy/docker/Dockerfile -t shop:${{ github.sha }} .

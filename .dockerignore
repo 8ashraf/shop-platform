@@ -1,0 +1,14 @@
+**/bin
+**/obj
+**/out
+.vs/
+.idea/
+.vscode/
+.git/
+.github/
+docs/
+tests/
+build/publish/
+**/*.user
+**/*.suo
+**/.DS_Store

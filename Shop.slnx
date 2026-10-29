@@ -1,0 +1,27 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Host/">
+    <Project Path="src/Host/Shop.Host/Shop.Host.csproj" />
+  </Folder>
+  <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Identity/">
+    <Project Path="src/Modules/Identity/Shop.Modules.Identity.Application/Shop.Modules.Identity.Application.csproj" />
+    <Project Path="src/Modules/Identity/Shop.Modules.Identity.Domain/Shop.Modules.Identity.Domain.csproj" />
+    <Project Path="src/Modules/Identity/Shop.Modules.Identity.Infrastructure/Shop.Modules.Identity.Infrastructure.csproj" />
+    <Project Path="src/Modules/Identity/Shop.Modules.Identity.IntegrationEvents/Shop.Modules.Identity.IntegrationEvents.csproj" />
+    <Project Path="src/Modules/Identity/Shop.Modules.Identity.Presentation/Shop.Modules.Identity.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/src/Shared/">
+    <Project Path="src/Shared/Shop.Shared.Application/Shop.Shared.Application.csproj" />
+    <Project Path="src/Shared/Shop.Shared.Infrastructure/Shop.Shared.Infrastructure.csproj" />
+    <Project Path="src/Shared/Shop.Shared.Kernel/Shop.Shared.Kernel.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Shop.ArchitectureTests/Shop.ArchitectureTests.csproj" />
+    <Project Path="tests/Shop.IntegrationTests/Shop.IntegrationTests.csproj" />
+  </Folder>
+  <Folder Name="/tests/Modules/" />
+  <Folder Name="/tests/Modules/Identity/">
+    <Project Path="tests/Modules/Identity/Shop.Modules.Identity.UnitTests/Shop.Modules.Identity.UnitTests.csproj" />
+  </Folder>
+</Solution>
