@@ -18,10 +18,10 @@ public sealed class IdentityModule : IModule
         var connectionString = configuration.GetConnectionString("Database")
             ?? throw new InvalidOperationException("Connection string 'Database' is not configured.");
 
-        services.AddDbContext<IdentityDbContext>(options =>
-            options.UseSqlServer(
-                connectionString,
-                sql => sql.MigrationsHistoryTable("__EFMigrationsHistory", IdentityDbContext.Schema)));
+            services.AddDbContext<IdentityDbContext>(options =>
+                options.UseNpgsql(
+                    connectionString,
+                    npgsql => npgsql.MigrationsHistoryTable("__EFMigrationsHistory", IdentityDbContext.Schema)));
 
         services.AddIdentityApplication();
         services.AddIntegrationEventHandlers(Application.AssemblyReference.Assembly);

@@ -6,7 +6,7 @@ C4Container
   Person(user, "User")
   System_Boundary(sys, "Shop") {
     Container(host, "Shop.Host", "ASP.NET Core", "Single deployable; loads every module via IModule")
-    ContainerDb(db, "SQL Server", "One schema per module")
+    ContainerDb(db, "PostgreSQL", "One schema per module")
   }
   Rel(user, host, "HTTPS / JSON")
   Rel(host, db, "EF Core")

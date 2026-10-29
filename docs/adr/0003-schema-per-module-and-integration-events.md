@@ -6,7 +6,7 @@
 Shared tables create hidden coupling between modules.
 
 ## Decision
-Each module owns a SQL Server schema named after it, its own `DbContext` and its own
+Each module owns a PostgreSQL schema named after it, its own `DbContext` and its own
 migrations history table. No module queries another module's schema. Cross-module
 communication uses `IEventBus` with in-process delivery for now.
 
