@@ -13,14 +13,26 @@ public sealed class Account : Entity
 
     // العميل بيتفعّل فوراً (الموبايل اتحقق منه بالـ OTP)
     public static Account CreateCustomer(Guid userId) =>
-        new() { Id = Guid.NewGuid(), UserId = userId, Type = AccountType.Customer, Status = AccountStatus.Active };
+        new()  {
+                    Id = Guid.NewGuid(),
+                    UserId = userId, Type = AccountType.Customer,
+                    Status = AccountStatus.Active 
+                };
 
     // التاجر لازم يستنى مراجعة KYB
     public static Account CreateMerchant(Guid userId) =>
-        new() { Id = Guid.NewGuid(), UserId = userId, Type = AccountType.Merchant, Status = AccountStatus.Pending };
+        new() { 
+                    Id = Guid.NewGuid(), 
+                    UserId = userId, Type = AccountType.Merchant, 
+                    Status = AccountStatus.Pending 
+                };
 
     public static Account CreatePlatformStaff(Guid userId) =>
-        new() { Id = Guid.NewGuid(), UserId = userId, Type = AccountType.PlatformStaff, Status = AccountStatus.Active };
+        new() { 
+                    Id = Guid.NewGuid(),
+                    UserId = userId, Type = AccountType.PlatformStaff, 
+                    Status = AccountStatus.Active 
+                };
 
     public bool IsActive => Status == AccountStatus.Active;
 
