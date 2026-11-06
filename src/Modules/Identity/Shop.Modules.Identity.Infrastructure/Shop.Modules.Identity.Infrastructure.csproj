@@ -10,6 +10,6 @@
     <ProjectReference Include="../Shop.Modules.Identity.Presentation/Shop.Modules.Identity.Presentation.csproj" />
     <ProjectReference Include="../Shop.Modules.Identity.IntegrationEvents/Shop.Modules.Identity.IntegrationEvents.csproj" />
     <ProjectReference Include="../../../Shared/Shop.Shared.Infrastructure/Shop.Shared.Infrastructure.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />    
   </ItemGroup>
 </Project>
