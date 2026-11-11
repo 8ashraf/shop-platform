@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="../../Shared/Shop.Shared.Infrastructure/Shop.Shared.Infrastructure.csproj" />
     <ProjectReference Include="../../Modules/Identity/Shop.Modules.Identity.Infrastructure/Shop.Modules.Identity.Infrastructure.csproj" />
+    <ProjectReference Include="../../Modules/Catalog/Shop.Modules.Catalog.Infrastructure/Shop.Modules.Catalog.Infrastructure.csproj" />
     <!-- modules -->
   </ItemGroup>
 </Project>

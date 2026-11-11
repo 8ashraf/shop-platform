@@ -11,3 +11,6 @@
 /src/Modules/Identity/    @8ashraf/identity-team
 /tests/Modules/Identity/  @8ashraf/identity-team
 /docs/architecture/modules/identity.md  @8ashraf/identity-team
+/src/Modules/Catalog/    @8ashraf/catalog-team
+/tests/Modules/Catalog/  @8ashraf/catalog-team
+/docs/architecture/modules/catalog.md  @8ashraf/catalog-team

@@ -117,7 +117,7 @@ set_package_versions() {
     case "$major" in
         8)  ASPNET_VER="8.0.11";  EF_VER="8.0.11";  SWASHBUCKLE_VER="6.9.0"; PKCS_VER="8.0.2" ;;
         9)  ASPNET_VER="9.0.0";   EF_VER="9.0.0";   SWASHBUCKLE_VER="7.2.0"; PKCS_VER="9.0.21" ;;
-        10) ASPNET_VER="10.0.0";  EF_VER="10.0.0";  SWASHBUCKLE_VER="7.2.0"; PKCS_VER="10.0.13" ;;
+        10) ASPNET_VER="10.0.0";  EF_VER="10.0.13";  SWASHBUCKLE_VER="7.2.0"; PKCS_VER="10.0.13" ;;
         *)  die "Unsupported framework '$FRAMEWORK'. Use net8.0, net9.0 or net10.0." ;;
     esac
     DOTNET_VERSION="${major}.0"
@@ -246,7 +246,7 @@ EOF
 
     <!-- Persistence (one DbContext + schema per module) -->
     <PackageVersion Include="Microsoft.EntityFrameworkCore" Version="$EF_VER" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$EF_VER" />
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
 
     <!-- Tests -->
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
@@ -1733,7 +1733,7 @@ EOF
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../$P.Application/$P.Application.csproj" />
@@ -1781,7 +1781,7 @@ public sealed class __MODULE__Module : IModule
             ?? throw new InvalidOperationException("Connection string 'Database' is not configured.");
 
         services.AddDbContext<__MODULE__DbContext>(options =>
-            options.UseSqlServer(
+            options.UseNpgsql(
                 connectionString,
                 sql => sql.MigrationsHistoryTable("__EFMigrationsHistory", __MODULE__DbContext.Schema)));
 

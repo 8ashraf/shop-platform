@@ -1,5 +1,6 @@
 // <module-usings>
 using Shop.Modules.Identity.Infrastructure;
+using Shop.Modules.Catalog.Infrastructure;
 // </module-usings>
 using Shop.Shared.Infrastructure;
 
@@ -15,6 +16,7 @@ public static class ModuleCatalog
     [
         // <modules>
         new IdentityModule(),
+        new CatalogModule(),
         // </modules>
     ];
 }

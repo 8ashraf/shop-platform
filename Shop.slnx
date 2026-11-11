@@ -4,6 +4,13 @@
     <Project Path="src/Host/Shop.Host/Shop.Host.csproj" />
   </Folder>
   <Folder Name="/src/Modules/" />
+  <Folder Name="/src/Modules/Catalog/">
+    <Project Path="src/Modules/Catalog/Shop.Modules.Catalog.Application/Shop.Modules.Catalog.Application.csproj" />
+    <Project Path="src/Modules/Catalog/Shop.Modules.Catalog.Domain/Shop.Modules.Catalog.Domain.csproj" />
+    <Project Path="src/Modules/Catalog/Shop.Modules.Catalog.Infrastructure/Shop.Modules.Catalog.Infrastructure.csproj" />
+    <Project Path="src/Modules/Catalog/Shop.Modules.Catalog.IntegrationEvents/Shop.Modules.Catalog.IntegrationEvents.csproj" />
+    <Project Path="src/Modules/Catalog/Shop.Modules.Catalog.Presentation/Shop.Modules.Catalog.Presentation.csproj" />
+  </Folder>
   <Folder Name="/src/Modules/Identity/">
     <Project Path="src/Modules/Identity/Shop.Modules.Identity.Application/Shop.Modules.Identity.Application.csproj" />
     <Project Path="src/Modules/Identity/Shop.Modules.Identity.Domain/Shop.Modules.Identity.Domain.csproj" />
@@ -21,6 +28,9 @@
     <Project Path="tests/Shop.IntegrationTests/Shop.IntegrationTests.csproj" />
   </Folder>
   <Folder Name="/tests/Modules/" />
+  <Folder Name="/tests/Modules/Catalog/">
+    <Project Path="tests/Modules/Catalog/Shop.Modules.Catalog.UnitTests/Shop.Modules.Catalog.UnitTests.csproj" />
+  </Folder>
   <Folder Name="/tests/Modules/Identity/">
     <Project Path="tests/Modules/Identity/Shop.Modules.Identity.UnitTests/Shop.Modules.Identity.UnitTests.csproj" />
   </Folder>

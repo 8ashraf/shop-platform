@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Public contract of the Catalog module. Other modules may reference ONLY this project. -->
+  <ItemGroup>
+    <ProjectReference Include="../../../Shared/Shop.Shared.Kernel/Shop.Shared.Kernel.csproj" />
+  </ItemGroup>
+</Project>

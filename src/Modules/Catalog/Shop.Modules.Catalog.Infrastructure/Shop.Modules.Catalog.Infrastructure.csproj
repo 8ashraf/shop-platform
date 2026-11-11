@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Shop.Modules.Catalog.Application/Shop.Modules.Catalog.Application.csproj" />
+    <ProjectReference Include="../Shop.Modules.Catalog.Presentation/Shop.Modules.Catalog.Presentation.csproj" />
+    <ProjectReference Include="../Shop.Modules.Catalog.IntegrationEvents/Shop.Modules.Catalog.IntegrationEvents.csproj" />
+    <ProjectReference Include="../../../Shared/Shop.Shared.Infrastructure/Shop.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
