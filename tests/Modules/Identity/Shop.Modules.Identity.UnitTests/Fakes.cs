@@ -1,6 +1,7 @@
 using Shop.Modules.Identity.Application;
 using Shop.Modules.Identity.Domain;
 using Shop.Shared.Application;
+using Shop.Shared.Kernel;
 
 namespace Shop.Modules.Identity.UnitTests;
 
@@ -58,6 +59,19 @@ public class FakeStore : IIdentityStore
     }
 
     public Task SaveChangesAsync() => Task.CompletedTask;
+
+        public Task<List<Account>> FindAccountsByUserAsync(Guid userId) =>
+        Task.FromResult(Accounts.Where(a => a.UserId == userId).ToList());
+
+    public Task<Organization?> FindOrganizationByIdAsync(Guid id) =>
+        Task.FromResult(Organizations.FirstOrDefault(o => o.Id == id));
+
+    public void AddOrganization(Organization organization) => Organizations.Add(organization);
+
+    public void AddMember(OrganizationMember member) => Members.Add(member);
+
+    public Task<OrganizationMember?> FindOwnerAsync(Guid organizationId) =>
+        Task.FromResult(Members.FirstOrDefault(m => m.OrgId == organizationId && m.Role == OrgRole.Owner));
 }
 
 public class FakeClock : IDateTimeProvider
@@ -85,4 +99,17 @@ public class FakeTokenIssuer : ITokenIssuer
 {
     public string CreateAccessToken(User user, Account account, Guid? orgId, List<string> permissions) =>
         $"org={orgId};perms={string.Join(",", permissions)}";
+}
+
+/// <summary>ناقل أحداث وهمي: بيحفظ الأحداث في قايمة عشان نفحصها.</summary>
+public class FakeEventBus : IEventBus
+{
+    public List<IntegrationEvent> Published { get; } = [];
+
+    public Task PublishAsync<TEvent>(TEvent integrationEvent, CancellationToken cancellationToken = default)
+        where TEvent : IntegrationEvent
+    {
+        Published.Add(integrationEvent);
+        return Task.CompletedTask;
+    }
 }

@@ -6,7 +6,8 @@ namespace Shop.Modules.Identity.Application;
 
 /// <summary>اللي بيرجع للمستخدم بعد تسجيل الدخول أو التجديد.</summary>
 public record AuthTokens(Guid AccountId, string AccountType, string AccessToken, string RefreshToken);
-
+/// <summary>معلومات حساب واحد للعرض.</summary>
+public record AccountInfo(Guid Id, string Type, string Status);
 public static class AuthErrors
 {
     public static readonly Error InvalidRefreshToken =
@@ -17,6 +18,9 @@ public static class AuthErrors
 
     public static readonly Error AccountNotActive =
         new("Identity.Auth.AccountNotActive", "Account is not active.");
+    
+    public static readonly Error AccountNotAvailable =
+        new("Identity.Auth.AccountNotAvailable", "Account was not found or is not active.");
 }
 
 /// <summary>بصمة SHA-256 (بنخزّن البصمة مش الكود ولا التوكن نفسه).</summary>

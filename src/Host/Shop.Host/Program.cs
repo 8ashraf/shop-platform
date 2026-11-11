@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Shop.Host;
 using Shop.Shared.Infrastructure;
+using Shop.Shared.Kernel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -58,7 +59,16 @@ builder.Services
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    // موظفي المنصة بس
+    options.AddPolicy("PlatformStaffOnly", policy =>
+        policy.RequireClaim("account_type", "PlatformStaff"));
+
+    // سياسة لكل صلاحية، واسمها هو اسم الصلاحية نفسها
+    foreach (var permission in Permissions.All)
+        options.AddPolicy(permission, policy => policy.RequireClaim("perms", permission));
+});
 
 builder.Services.AddSharedInfrastructure();
 builder.Services.AddModules(builder.Configuration, modules);

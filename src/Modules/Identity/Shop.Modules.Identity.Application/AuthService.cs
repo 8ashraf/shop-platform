@@ -149,7 +149,36 @@ public class AuthService(
 
         return Result.Success();
     }
+        // ---------------------------------------------------------------
+    // 5) حساباتي
+    // ---------------------------------------------------------------
+    public async Task<List<AccountInfo>> ListAccountsAsync(Guid userId)
+    {
+        var accounts = await store.FindAccountsByUserAsync(userId);
 
+        return accounts
+            .Select(account => new AccountInfo(account.Id, account.Type.ToString(), account.Status.ToString()))
+            .ToList();
+    }
+
+    // ---------------------------------------------------------------
+    // 6) تبديل الحساب (token للحساب اللي اخترته)
+    // ---------------------------------------------------------------
+    public async Task<Result<AuthTokens>> SwitchAccountAsync(Guid userId, Guid accountId)
+    {
+        var user = await store.FindUserByIdAsync(userId);
+        var account = await store.FindAccountByIdAsync(accountId);
+
+        // نفس الرد في كل الحالات (مش موجود، مش بتاعك، مش فعّال)
+        // عشان محدش يعرف إن حساب معين موجود
+        if (user is null || account is null || account.UserId != userId || !account.IsActive)
+            return Result.Failure<AuthTokens>(AuthErrors.AccountNotAvailable);
+
+        var tokens = await CreateSessionAsync(user, account);
+        await store.SaveChangesAsync();
+
+        return Result.Success(tokens);
+    }
     // ---------------------------------------------------------------
     // مشترك: يصنع access token + refresh token لحساب معيّن
     // ---------------------------------------------------------------

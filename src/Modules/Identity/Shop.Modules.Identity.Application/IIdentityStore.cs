@@ -13,6 +13,7 @@ public interface IIdentityStore
     // الحسابات
     Task<Account?> FindAccountByIdAsync(Guid id);
     Task<Account?> FindAccountAsync(Guid userId, AccountType type);
+    Task<List<Account>> FindAccountsByUserAsync(Guid userId);
     void AddAccount(Account account);
 
     // أكواد التحقق
@@ -25,6 +26,10 @@ public interface IIdentityStore
     void AddRefreshToken(RefreshToken token);
 
     // المتاجر
+    Task<Organization?> FindOrganizationByIdAsync(Guid id);
+    void AddOrganization(Organization organization);
+    void AddMember(OrganizationMember member);
+    Task<OrganizationMember?> FindOwnerAsync(Guid organizationId);
     Task<OrganizationMember?> FindActiveMembershipAsync(Guid userId);
 
     // حفظ كل التغييرات مرة واحدة

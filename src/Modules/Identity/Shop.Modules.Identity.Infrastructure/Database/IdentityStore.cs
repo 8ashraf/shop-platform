@@ -53,5 +53,19 @@ public class IdentityStore(IdentityDbContext db) : IIdentityStore
             .Where(member => db.Organizations.Any(org => org.Id == member.OrgId && org.Status == OrgStatus.Active))
             .FirstOrDefaultAsync();
 
+        public Task<List<Account>> FindAccountsByUserAsync(Guid userId) =>
+        db.Accounts.Where(account => account.UserId == userId).ToListAsync();
+
+    public Task<Organization?> FindOrganizationByIdAsync(Guid id) =>
+        db.Organizations.FirstOrDefaultAsync(organization => organization.Id == id);
+
+    public void AddOrganization(Organization organization) => db.Organizations.Add(organization);
+
+    public void AddMember(OrganizationMember member) => db.OrganizationMembers.Add(member);
+
+    public Task<OrganizationMember?> FindOwnerAsync(Guid organizationId) =>
+        db.OrganizationMembers.FirstOrDefaultAsync(member =>
+            member.OrgId == organizationId && member.Role == OrgRole.Owner);
+
     public Task SaveChangesAsync() => db.SaveChangesAsync();
 }
