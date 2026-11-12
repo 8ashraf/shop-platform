@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Shop.Modules.Identity.Application;
 using Shop.Modules.Identity.Domain;
 using Shop.Shared.Application;
+using Shop.Shared.Kernel;
 
 namespace Shop.Modules.Identity.Infrastructure.Services;
 
@@ -16,19 +17,19 @@ public class JwtTokenIssuer(IConfiguration configuration, IDateTimeProvider cloc
     public string CreateAccessToken(User user, Account account, Guid? orgId, List<string> permissions)
     {
         // البيانات اللي جوه الـ token
-        var claims = new List<Claim>
+                var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+            new(ClaimNames.UserId, user.Id.ToString()),
             new("principal_type", "Human"),
-            new("account_id", account.Id.ToString()),
-            new("account_type", account.Type.ToString())
+            new(ClaimNames.AccountId, account.Id.ToString()),
+            new(ClaimNames.AccountType, account.Type.ToString())
         };
 
         if (orgId is not null)
-            claims.Add(new Claim("org_id", orgId.Value.ToString()));
+            claims.Add(new Claim(ClaimNames.OrgId, orgId.Value.ToString()));
 
         foreach (var permission in permissions)
-            claims.Add(new Claim("perms", permission));
+            claims.Add(new Claim(ClaimNames.Permission, permission));
 
         // التوقيع بالمفتاح السري
         var secret = configuration["Jwt:Key"]

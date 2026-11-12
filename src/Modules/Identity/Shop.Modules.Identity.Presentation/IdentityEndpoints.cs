@@ -1,4 +1,4 @@
-using System.Security.Claims;
+using Shop.Shared.Application;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -50,30 +50,30 @@ public static class IdentityEndpoints
         });
 
         // ---------------- محمية: لازم access token ----------------
-        group.MapGet("/me", (ClaimsPrincipal user) => Results.Ok(new
+                group.MapGet("/me", (ICurrentPrincipal me) => Results.Ok(new
         {
-            userId = user.FindFirstValue("sub"),
-            accountId = user.FindFirstValue("account_id"),
-            accountType = user.FindFirstValue("account_type"),
-            orgId = user.FindFirstValue("org_id"),
-            permissions = user.FindAll("perms").Select(claim => claim.Value).ToList()
+            userId = me.UserId,
+            accountId = me.AccountId,
+            accountType = me.AccountType,
+            orgId = me.OrgId,
+            permissions = me.Permissions
         })).RequireAuthorization();
 
-        group.MapGet("/accounts", async (ClaimsPrincipal user, AuthService auth) =>
+                group.MapGet("/accounts", async (ICurrentPrincipal me, AuthService auth) =>
         {
-            var accounts = await auth.ListAccountsAsync(GetUserId(user));
+            var accounts = await auth.ListAccountsAsync(me.UserId);
             return Results.Ok(accounts);
         }).RequireAuthorization();
 
-        group.MapPost("/switch-account", async (SwitchAccountRequest request, ClaimsPrincipal user, AuthService auth) =>
+        group.MapPost("/switch-account", async (SwitchAccountRequest request, ICurrentPrincipal me, AuthService auth) =>
         {
-            var result = await auth.SwitchAccountAsync(GetUserId(user), request.AccountId);
+            var result = await auth.SwitchAccountAsync(me.UserId, request.AccountId);
             return result.IsFailure ? ToHttpError(result.Error) : Results.Ok(result.Value);
         }).RequireAuthorization();
 
-        group.MapPost("/merchant/register", async (MerchantRegisterRequest request, ClaimsPrincipal user, MerchantService merchants) =>
+        group.MapPost("/merchant/register", async (MerchantRegisterRequest request, ICurrentPrincipal me, MerchantService merchants) =>
         {
-            var result = await merchants.RegisterAsync(GetUserId(user), request.StoreName);
+            var result = await merchants.RegisterAsync(me.UserId, request.StoreName);
             return result.IsFailure ? ToHttpError(result.Error) : Results.Ok(result.Value);
         }).RequireAuthorization();
 
@@ -87,8 +87,7 @@ public static class IdentityEndpoints
         return endpoints;
     }
 
-    private static Guid GetUserId(ClaimsPrincipal user) =>
-        Guid.Parse(user.FindFirstValue("sub")!);
+    
 
     // بنحوّل سبب الفشل لكود HTTP مناسب
     private static IResult ToHttpError(Error error)

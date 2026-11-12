@@ -9,6 +9,11 @@ public static class DependencyInjection
     {
         services.AddSingleton<IEventBus, InMemoryEventBus>();
         services.AddSingleton<IDateTimeProvider, SystemDateTimeProvider>();
+
+        // مين اللي بيتكلم؟ (بتقرا الـ claims من الطلب الحالي)
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentPrincipal, CurrentPrincipal>();
+
         return services;
     }
 }
