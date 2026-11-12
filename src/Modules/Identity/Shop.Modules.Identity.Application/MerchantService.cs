@@ -78,8 +78,12 @@ public class MerchantService(IIdentityStore store, IEventBus eventBus)
 
         await store.SaveChangesAsync();
 
-        // نبلّغ باقي الـ Modules بعد ما الحفظ ينجح
-        await eventBus.PublishAsync(new MerchantApproved(organization.Id, owner.UserId));
+               // نبلّغ باقي الـ Modules بعد ما الحفظ ينجح
+        await eventBus.PublishAsync(new AccountActivated(
+            merchantAccount.Id,
+            owner.UserId,
+            merchantAccount.Type.ToString(),
+            organization.Id));
 
         return Result.Success();
     }

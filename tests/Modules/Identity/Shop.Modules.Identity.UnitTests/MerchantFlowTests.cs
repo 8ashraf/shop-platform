@@ -78,9 +78,11 @@ public class MerchantFlowTests
         Assert.True(result.IsSuccess);
         Assert.Equal(OrgStatus.Active, _store.Organizations.Single().Status);
         Assert.True(_store.Accounts.Single(a => a.Type == AccountType.Merchant).IsActive);
-        var published = Assert.IsType<MerchantApproved>(Assert.Single(_events.Published));
+                var published = Assert.IsType<AccountActivated>(Assert.Single(_events.Published));
+        Assert.Equal(registration.AccountId, published.AccountId);
+        Assert.Equal(userId, published.UserId);
+        Assert.Equal("Merchant", published.AccountType);
         Assert.Equal(registration.OrganizationId, published.OrganizationId);
-        Assert.Equal(userId, published.OwnerUserId);
     }
 
     [Fact]
