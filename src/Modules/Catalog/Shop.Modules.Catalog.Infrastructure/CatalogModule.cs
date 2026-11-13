@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+
 namespace Shop.Modules.Catalog.Infrastructure;
 
 public sealed class CatalogModule : IModule
@@ -22,7 +23,8 @@ public sealed class CatalogModule : IModule
             options.UseNpgsql(
                 connectionString,
                 sql => sql.MigrationsHistoryTable("__EFMigrationsHistory", CatalogDbContext.Schema)));
-
+        
+        services.AddScoped<ICatalogStore, CatalogStore>();
         services.AddCatalogApplication();
         services.AddIntegrationEventHandlers(Application.AssemblyReference.Assembly);
     }

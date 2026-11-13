@@ -6,5 +6,6 @@
     <ProjectReference Include="../Shop.Modules.Catalog.Domain/Shop.Modules.Catalog.Domain.csproj" />
     <ProjectReference Include="../Shop.Modules.Catalog.IntegrationEvents/Shop.Modules.Catalog.IntegrationEvents.csproj" />
     <ProjectReference Include="../../../Shared/Shop.Shared.Application/Shop.Shared.Application.csproj" />
+    <ProjectReference Include="..\..\Identity\Shop.Modules.Identity.IntegrationEvents\Shop.Modules.Identity.IntegrationEvents.csproj" />
   </ItemGroup>
 </Project>

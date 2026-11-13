@@ -40,7 +40,7 @@ var jwtKey = builder.Configuration["Jwt:Key"]
     ?? throw new InvalidOperationException("Configuration 'Jwt:Key' is missing.");
 
 builder.Services
-    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//شرط: كل طلب لازم يكون فيه Authorization header فيه Bearer token
     .AddJwtBearer(options =>
     {
         // نخلّي أسماء الـ claims زي ما هي (sub, account_id...)
@@ -48,14 +48,14 @@ builder.Services
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidateAudience = true,
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            ValidateLifetime = true,
+            ValidateIssuer = true,// لازم الـ token يكون جاي من نفس الـ issuer اللي احنا محددينه
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],// لازم الـ token يكون موجه للـ audience اللي احنا محددينه
+            ValidateAudience = true,// لازم الـ token يكون موجه للـ audience اللي احنا محددينه
+            ValidAudience = builder.Configuration["Jwt:Audience"],// لازم الـ token يكون موقّع بالمفتاح السري اللي احنا محددينه
+            ValidateLifetime = true,// لازم الـ token يكون مش منتهي الصلاحية
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
-            ClockSkew = TimeSpan.FromSeconds(30)
+            ClockSkew = TimeSpan.FromSeconds(30)// السماح بفارق 30 ثانية بين ساعة السيرفر وساعة الـ token (عشان لو السيرفر شوية متأخر أو متقدم عن ساعة الـ token)
         };
     });
 
